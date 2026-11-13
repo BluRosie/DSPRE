@@ -44,6 +44,7 @@ runs:
       shell: bash
       env:
         OUTPUT_DIRECTORY: ${{ inputs.output-directory }}
+        CFLAGS: -Dstrchrnul=nitroarc_strchrnul
       run: |
         set -euo pipefail
         echo "Building rotom $(git -C Tools/rotom-src rev-parse HEAD)"
