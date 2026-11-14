@@ -75,7 +75,7 @@ jobs:
           path: DSPRE-Avalonia-win-x64-canary.zip
 
   build-linux:
-    if: github.repository == 'DS-Pokemon-Rom-Editor/DSPRE'
+    if: github.repository == 'BluRosie/DSPRE'
     runs-on: ubuntu-latest
 
     steps:
@@ -144,10 +144,8 @@ jobs:
           path: DSPRE-Avalonia-linux-x64-canary.tar.gz
 
   # Experimental: a failure here doesn't hold back the Windows and Linux release.
-  # Off until uxie is fixed.
   build-macos:
-    if: false && github.repository == 'DS-Pokemon-Rom-Editor/DSPRE'
-    continue-on-error: true
+    if: github.repository == 'BluRosie/DSPRE'
     strategy:
       fail-fast: false
       matrix:
@@ -223,7 +221,7 @@ jobs:
           path: DSPRE-Avalonia-${{ matrix.rid }}-canary.tar.gz
 
   release:
-    if: ${{ always() && github.repository == 'DS-Pokemon-Rom-Editor/DSPRE' && needs.build-windows.result == 'success' && needs.build-linux.result == 'success' }}
+    if: ${{ always() && github.repository == 'BluRosie/DSPRE' && needs.build-macos.result == 'success' }}
     needs: [build-windows, build-linux, build-macos]
     runs-on: ubuntu-latest
 
@@ -232,17 +230,18 @@ jobs:
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: dspre-avalonia-win-x64
 
       - name: Download Linux artifact
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: dspre-avalonia-linux-x64
 
       - name: Download macOS artifacts
         uses: actions/download-artifact@v4
-        continue-on-error: true
         with:
           pattern: dspre-avalonia-osx-*
           merge-multiple: true
