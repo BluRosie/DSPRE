@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build-windows:
-    if: github.repository == 'DS-Pokemon-Rom-Editor/DSPRE'
+    if: github.repository == 'BluRosie/DSPRE'
     runs-on: windows-latest
 
     steps:
@@ -75,7 +75,7 @@ jobs:
           path: DSPRE-Avalonia-win-x64-canary.zip
 
   build-linux:
-    if: github.repository == 'DS-Pokemon-Rom-Editor/DSPRE'
+    if: github.repository == 'BluRosie/DSPRE'
     runs-on: ubuntu-latest
 
     steps:
@@ -143,9 +143,8 @@ jobs:
           name: dspre-avalonia-linux-x64
           path: DSPRE-Avalonia-linux-x64-canary.tar.gz
 
-  # Experimental: a failure here doesn't hold back the Windows and Linux release.
   build-macos:
-    if: github.repository == 'DS-Pokemon-Rom-Editor/DSPRE'
+    if: github.repository == 'BluRosie/DSPRE'
     strategy:
       fail-fast: false
       matrix:
